@@ -223,3 +223,8 @@ __marimo__/
 llama-b8994/
 Llama-3.2-3B-Instruct-Q4_K_M.gguf
 
+/requirements.txt
+/output.wav
+/model.pt
+latest_silero_models.yml
+sentry-native
