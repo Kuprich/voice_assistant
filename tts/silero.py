@@ -5,7 +5,6 @@ from pathlib import Path
 import torch
 import soundfile as sf
 
-from voice import TTSBase
 
 @dataclass
 class SileroConfig:
@@ -23,7 +22,7 @@ class SileroConfig:
     put_yo_homo: bool = True
 
 
-class TTSSilero(TTSBase):
+class Silero:
     MODELS_URL = 'https://raw.githubusercontent.com/snakers4/silero-models/master/models.yml'
     MODELS_FILE = 'latest_silero_models.yml'
 
@@ -58,7 +57,7 @@ class TTSSilero(TTSBase):
     def speak(self, text: str) -> None:
         # Call apply_tts with explicit parameters from config
         audio = self.model.apply_tts(
-            ssml_text=text,
+            text=text,
             speaker=self.config.speaker,
             sample_rate=self.config.sample_rate,
             put_accent=self.config.put_accent,
@@ -70,6 +69,3 @@ class TTSSilero(TTSBase):
         # Save to file
         audio_np = audio.detach().cpu().numpy().reshape(-1, 1)
         sf.write(self.config.output_file, audio_np, self.config.sample_rate)
-
-    def stop(self) -> None:
-        pass
